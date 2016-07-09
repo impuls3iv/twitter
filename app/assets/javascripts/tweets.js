@@ -3,7 +3,7 @@
 $(function(){
 
   //grab the click event
-  $('#new_tweet').on('submit', function(e){
+  $('#tweet_message').on('submit', function(e){
     //var self = $(this)
     e.preventDefault();
   //start ajax function
@@ -13,7 +13,7 @@ $(function(){
       data: $(this).serialize,
       dataType: 'html'
     }).done(function(responseData){
-      var item = ('<li class = "tweet">' + responseData + '</li>');
+      var item = ('<li class = "tweet"><p>' + responseData.message + '</p></li>');
       //post tweet to the list
       $('.tweets').append(item);
 
