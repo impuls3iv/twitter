@@ -3,19 +3,19 @@
 $(function(){
 
   //grab the click event
-  $('#tweet-message').on('click', function(e){
+  $('#new_tweet').on('submit', function(e){
+    //var self = $(this)
     e.preventDefault();
   //start ajax function
     $.ajax({
       url: $(this).attr('action'),
-      method: "POST"
-      data: $(this).serialize
-      dataType: "POST"
+      method: 'POST',
+      data: $(this).serialize,
+      dataType: 'html'
     }).done(function(responseData){
-      
-    }.always{
-
-    }.fail{
+      var item = ('<li class = "tweet">' + responseData + '</li>');
+      //post tweet to the list
+      $('.tweets').append(item);
 
     });//end of ajax
   });// end of click event
