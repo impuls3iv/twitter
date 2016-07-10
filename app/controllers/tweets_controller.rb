@@ -8,18 +8,18 @@ class TweetsController < ApplicationController
     @tweet = Tweet.new(tweet_params)
 
     if @tweet.save
-      respond_to do |format|
-        format.html do
-          render html: @tweet
-        end
-        format.json do
-          render json: @tweet
-        end
+      if request.xhr?
+        render @tweet, layout: false
+      else
+        redirect_to root_path
       end
     else
       render :index
     end
+
   end
+
+
 
   def destroy
   end
@@ -29,4 +29,5 @@ class TweetsController < ApplicationController
   def tweet_params
     params.require(:tweet).permit(:message)
   end
+
 end
