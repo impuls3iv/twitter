@@ -3,19 +3,24 @@
 $(function(){
 
   //grab the click event
-  $('#new_tweet').on('submit', function(e){
-    var valuesToSubmit = $(this).serialize;
+  $('.new_tweet').on('submit', function(e){
+
     console.log('point one')
     //var self = $(this)
     e.preventDefault();
-    $('.tweets').html('');
+
 
     //start ajax function
     $.ajax({
       url: $(this).attr('action'),
-      method: 'POST',
-      data: valuesToSubmit,
-      dataType: 'html'
+      method: $(this).attr('method'),
+      data: $(this).serialize(),
+      dataType: 'json'
+    }).done(function(responseData){
+      var source = $('#tweet-template').html();
+      var template = Handlebars.compile(source);
+      var output = template(responseData);
+      $('.tweets').prepend(output);
     });
     //  }).done(function(responseData){
     //   //var item = ('<li class = "tweet"><p></p></li>');

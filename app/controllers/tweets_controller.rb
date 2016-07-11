@@ -6,17 +6,11 @@ class TweetsController < ApplicationController
 
   def create
     @tweet = Tweet.new(tweet_params)
-
     if @tweet.save
-      if request.xhr?
-        render @tweet, layout: false
-      else
-        redirect_to root_path
+      respond_to do |format|
+        format.json { render json: @tweet}
       end
-    else
-      render :index
     end
-
   end
 
 

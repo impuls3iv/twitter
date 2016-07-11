@@ -1,13 +1,17 @@
 <ul class="tweets">
   <% @tweets.each do |tweet| %>
-    <li class="tweet">
-      <p><%= tweet.message %></p>
-      <time><%= tweet.created_at.strftime('%b %e, %l:%M %p') %></time>
-    </li>
+    <%= render tweet %>
   <% end %>
 </ul>
 
-<%= form_for @tweet, remote: true do |f| %>
+<%= form_for @tweet do |f| %>
   <%= f.text_area :message, placeholder: "What did you learn today?" %>
   <%= f.submit "Tweet", id: "create-tweet" %>
 <% end %>
+
+<script id="tweet-template" type="text/x-handlebars-template">
+  <li class="tweet">
+    <p>{{message}}</p>
+    <time>{{created_at}}</time>
+  </li>
+</script>
